@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2022",
+    "outDir": "out/test",
+    "rootDir": "test",
+    "lib": [
+      "ES2022"
+    ],
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "test/runTest.ts",
+    "test/suite/**/*.ts",
+    "test/fixtures/**/*.ts"
+  ]
+}

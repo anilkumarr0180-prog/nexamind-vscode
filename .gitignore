@@ -1,0 +1,39 @@
+# Build and compilation artifacts
+out/
+dist/
+build/
+*.vsix
+*.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# VS Code test electron instances and fixtures
+.vscode-test/
+
+# Local editor and workspace state (keep shared launch/tasks if needed, or ignore local overrides)
+.vscode/*.log
+.vscode/.browse.*
+.vscode/settings.json
+.vscode/*.code-workspace
+
+# Environment variables, credentials, and private keys
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.cert
+*.crt
+*.pfx
+*.p12
+
+# Logs and runtime diagnostics
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific metadata
+.DS_Store
+Thumbs.db

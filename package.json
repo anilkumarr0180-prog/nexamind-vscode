@@ -1,0 +1,185 @@
+{
+  "name": "nexamind-vscode",
+  "displayName": "NexaMind AI",
+  "description": "NexaMind AI Coding Assistant for VS Code - Read-only workspace integration, code analysis, structured edit proposals, and agent streaming",
+  "version": "0.2.0",
+  "publisher": "nexamind",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Education"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onView:nexamind.chatView",
+    "onCommand:nexamind.ask",
+    "onCommand:nexamind.explain",
+    "onCommand:nexamind.proposeEdit",
+    "onCommand:nexamind.login",
+    "onCommand:nexamind.logout"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "nexamind-sidebar",
+          "title": "NexaMind AI",
+          "icon": "resources/nexamind-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "nexamind-sidebar": [
+        {
+          "type": "webview",
+          "id": "nexamind.chatView",
+          "name": "NexaMind Assistant"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "nexamind.ask",
+        "title": "NexaMind: Ask About Code",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.explain",
+        "title": "NexaMind: Explain Selection",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.proposeEdit",
+        "title": "NexaMind: Propose Code Edit",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.reviewDiff",
+        "title": "NexaMind: Review Proposed Diff",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.applyProposal",
+        "title": "NexaMind: Apply Proposed Edit",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.rejectProposal",
+        "title": "NexaMind: Reject Proposed Edit",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.login",
+        "title": "NexaMind: Login / Configure Token",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.logout",
+        "title": "NexaMind: Logout",
+        "category": "NexaMind"
+      },
+      {
+        "command": "nexamind.clearChat",
+        "title": "NexaMind: Clear Chat History",
+        "category": "NexaMind"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "nexamind.explain",
+          "when": "editorHasSelection",
+          "group": "nexamind@1"
+        },
+        {
+          "command": "nexamind.proposeEdit",
+          "group": "nexamind@2"
+        },
+        {
+          "command": "nexamind.ask",
+          "group": "nexamind@3"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "nexamind.clearChat",
+          "when": "view == nexamind.chatView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "NexaMind AI",
+      "properties": {
+        "nexamind.apiUrl": {
+          "type": "string",
+          "default": "https://nexamind-backend-a19d.onrender.com/api/v1",
+          "description": "Base URL of the NexaMind backend API (e.g. https://nexamind-backend-a19d.onrender.com/api/v1)."
+        },
+        "nexamind.maxContextChars": {
+          "type": "number",
+          "default": 24000,
+          "description": "Maximum character limit for workspace context sent to the backend Agent."
+        },
+        "nexamind.includeDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include compiler and linter diagnostics for the active editor in the agent context."
+        },
+        "nexamind.webUrl": {
+          "type": "string",
+          "default": "https://nexamind-frontend.vercel.app",
+          "description": "Base URL of the NexaMind web application for browser-based authorization (e.g. https://nexamind-frontend.vercel.app)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:unit",
+    "test:unit": "npx tsx test/runner.ts",
+    "test:integration": "npx tsx test/integration-runner.ts",
+    "package": "vsce package --no-dependencies --allow-missing-repository",
+    "compile:test": "tsc -p ./tsconfig.test.json",
+    "pretest:vscode": "npm run compile && npm run compile:test",
+    "test:vscode": "npm run compile && npm run compile:test && node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "dotenv": "^18.0.8",
+    "glob": "^13.0.6",
+    "mocha": "^12.0.3",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "icon": "resources/nexamind-icon.png",
+  "license": "MIT",
+  "homepage": "https://nexamind-frontend.vercel.app",
+  "keywords": [
+    "ai",
+    "coding assistant",
+    "code review",
+    "refactoring",
+    "chat",
+    "code explanation",
+    "diff review"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anilkumarr0180-prog/nexamind-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anilkumarr0180-prog/nexamind-vscode/issues"
+  }
+}
